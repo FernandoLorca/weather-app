@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
-function App() {
+export const DataContext = createContext();
+
+const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
 
@@ -22,9 +24,11 @@ function App() {
     }
   }, []);
 
-  console.log(data);
+  return (
+    <DataContext.Provider value={(data, error)}>
+      {children}
+    </DataContext.Provider>
+  );
+};
 
-  return <div>App</div>;
-}
-
-export default App;
+export default DataProvider;
