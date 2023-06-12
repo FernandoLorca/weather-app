@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
+import { ContextApi } from './context/contextApiProvider';
 
 import SearchInput from './components/SearchInput';
 
 function App() {
-  const [data, setData] = useState('');
-  const [inputStatus, setInputStatus] = useState('hidden');
-  const [contentStatus, setContentStatus] = useState('hidden');
-  const [opacityClass, setOpacityClass] = useState('opacity-0');
-  const [urlFetch, setUrlFetch] = useState('');
+  const { data, handleButtonClick, inputValue, setInputValue } =
+    useContext(ContextApi);
+  console.log(data);
   const [weatherImage, setWeatherImage] = useState('');
-  const [mainContent, setMainContent] = useState('hidden');
 
   const handleImage = () => {
     if (data && data.weather) {
@@ -34,70 +32,22 @@ function App() {
     }
   };
 
-  //validacion al momento de busar, funcion aparece o desaparece mensaje de validacion de input dependiendo de si el input tiene datos o no tiene
-  const handleButtonClick = () => {
-    if (inputValue === '' && data === '') {
-      setInputStatus('block');
-      setContentStatus('hidden');
-    } else {
-      setInputStatus('hidden');
-      setUrlFetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&units=metric&appid=82e845dcd486575303f22bf3fb66f131`
-      );
-      setMainContent('block');
-      setContentStatus('block');
-      setInputValue('');
-      handleImage();
-    }
-  };
-
-  const getData = async () => {
-    try {
-      const res = await fetch(urlFetch);
-      if (res.ok) {
-        const data = await res.json();
-        setData(data);
-      } else if (res.status === 404 || res.status === 400) {
-        setMainContent('hidden');
-        throw new Error(
-          `Error al obtener datos de la API: ${res.status} StatusText: ${res.statusText} URL: ${res.url}`
-        );
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (urlFetch) {
-      getData();
-    }
-
-    handleImage();
-
-    // useEffect que esta pendiente del estado inputState, que si el inputstatus es block entonces agrega opacity 0 al mensaje de error, si esta en hidden, hace un timeaout para esperar a que aparesca el div contenedor del mensaje y despues de un tiempo agrega opacidad a 100 para que se vea la transición
-    if (inputStatus === 'block') {
-      setOpacityClass('opacity-0');
-      setTimeout(() => {
-        setOpacityClass('opacity-100');
-      }, 10);
-    } else {
-      setOpacityClass('opacity-0');
-    }
-  }, [inputStatus, urlFetch, data]);
-
   return (
     <div className="bg-white rounded-3xl py-5 px-16">
       <div className="my-5">
-        <SearchInput />
+        <SearchInput
+          handleButtonClick={handleButtonClick}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+        />
         <div
-          className={`flex flex-col justify-center items-center transition-opacity duration-500 ${inputStatus} ${opacityClass}`}
+          className={`flex flex-col justify-center items-center transition-opacity duration-500 hidden`}
         >
           <img src="/error.svg" alt="" className="w-64 h-64" />
           <p className="text-xl text-slate-400">Must be a valid city name</p>
         </div>
       </div>
-      <div className={mainContent}>
+      <div className="">
         <div className="flex justify-center items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -118,18 +68,14 @@ function App() {
               fill="currentColor"
             ></path>
           </svg>
-          <p className="font-bold text-xl">{data && data.name.toUpperCase()}</p>
+          <p className="font-bold text-xl"></p>
         </div>
         <div className="flex justify-center py-5">
           <img src={weatherImage} alt="" className="w-52 h-52" />
         </div>
         <div className="text-center">
-          <p className="text-7xl font-bold text-orange-600">
-            {data && Math.trunc(data.main.temp)}ºC
-          </p>
-          <p className="text-xl text-slate-400">
-            {data && data.weather[0].main}
-          </p>
+          <p className="text-7xl font-bold text-orange-600">ºC</p>
+          <p className="text-xl text-slate-400"></p>
         </div>
         <div className="flex justify-center gap-5 px-5 my-5">
           <div className="flex flex-col items-center box-shadow w-36 py-4 px-6 rounded-3xl ">
@@ -156,9 +102,7 @@ function App() {
               <path d="M17.7 17.7l.01 .01"></path>
               <path d="M6.3 17.7l.01 .01"></path>
             </svg>
-            <p className="font-bold text-xl text-slate-700">
-              {data && Math.trunc(data.main.feels_like)}ºC
-            </p>
+            <p className="font-bold text-xl text-slate-700">{data.main}ºC</p>
             <p className="text-slate-400">Feels like</p>
           </div>
           <div className="flex flex-col items-center box-shadow w-36 py-4 px-6 rounded-3xl ">
@@ -179,9 +123,7 @@ function App() {
               <path d="M3 12h15.5a2.5 2.5 0 1 1 -2.34 3.24"></path>
               <path d="M4 16h5.5a2.5 2.5 0 1 1 -2.34 3.24"></path>
             </svg>
-            <p className="font-bold text-xl text-slate-700">
-              {data && data.wind.speed} m/s
-            </p>
+            <p className="font-bold text-xl text-slate-700">m/s</p>
             <p className="text-slate-400">Wind</p>
           </div>
           <div className="flex flex-col items-center box-shadow w-36 py-4 px-6 rounded-3xl ">
@@ -200,9 +142,7 @@ function App() {
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M7.502 19.423c2.602 2.105 6.395 2.105 8.996 0c2.602 -2.105 3.262 -5.708 1.566 -8.546l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546z"></path>
             </svg>
-            <p className="font-bold text-xl text-slate-700">
-              {data && data.main.humidity}%
-            </p>
+            <p className="font-bold text-xl text-slate-700">%</p>
             <p className="text-slate-400">Humidity</p>
           </div>
           <div className="flex flex-col items-center box-shadow w-36 py-4 px-6 rounded-3xl ">

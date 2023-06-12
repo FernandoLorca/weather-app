@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 
-import ContextApi from './context/contextApiProvider';
+import ContextApiProvider from './context/contextApiProvider';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ContextApi>
+    <ContextApiProvider>
       <App />
-    </ContextApi>
+    </ContextApiProvider>
   </React.StrictMode>
 );
