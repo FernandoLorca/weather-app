@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ContextApi } from './context/contextApiProvider';
 
 import SearchInput from './components/SearchInput';
@@ -6,31 +6,31 @@ import SearchInput from './components/SearchInput';
 function App() {
   const { data, handleButtonClick, inputValue, setInputValue } =
     useContext(ContextApi);
-  console.log(data);
   const [weatherImage, setWeatherImage] = useState('');
 
   const handleImage = () => {
-    if (data && data.weather) {
-      const weatherMain = data.weather[0].main;
-      switch (weatherMain) {
-        case 'Clear':
-          setWeatherImage('/clear.svg');
-          break;
-        case 'Clouds':
-          setWeatherImage('/clouds.svg');
-          break;
-        case 'Haze':
-          setWeatherImage('/haze.svg');
-          break;
-        case 'Rain':
-          setWeatherImage('/rain.svg');
-          break;
-        case 'Snow':
-          setWeatherImage('/snow.svg');
-          break;
-      }
+    if (!data[0]) return;
+    const weatherMain = data[0].weather[0].main;
+    switch (weatherMain) {
+      case 'Clear':
+        setWeatherImage('/clear.svg');
+        break;
+      case 'Clouds':
+        setWeatherImage('/clouds.svg');
+        break;
+      case 'Haze':
+        setWeatherImage('/haze.svg');
+        break;
+      case 'Rain':
+        setWeatherImage('/rain.svg');
+        break;
+      case 'Snow':
+        setWeatherImage('/snow.svg');
+        break;
     }
   };
+
+  useEffect(() => handleImage(), [data[0]]);
 
   return (
     <div className="bg-white rounded-3xl py-5 px-16">
@@ -75,7 +75,7 @@ function App() {
         </div>
         <div className="text-center">
           <p className="text-7xl font-bold text-orange-600">
-            {data === [] ? Math.trunc(data[0].main.temp) : ''}ºC
+            {data[0] && Math.trunc(data[0].main.temp)}ºC
           </p>
           <p className="text-xl text-slate-400"></p>
         </div>
@@ -105,7 +105,7 @@ function App() {
               <path d="M6.3 17.7l.01 .01"></path>
             </svg>
             <p className="font-bold text-xl text-slate-700">
-              {data === [] ? Math.trunc(data[0].main.temp) : ''}ºC
+              {data[0] && Math.trunc(data[0].main.feels_like)}ºC
             </p>
             <p className="text-slate-400">Feels like</p>
           </div>
@@ -128,7 +128,7 @@ function App() {
               <path d="M4 16h5.5a2.5 2.5 0 1 1 -2.34 3.24"></path>
             </svg>
             <p className="font-bold text-xl text-slate-700">
-              {data === [] ? Math.trunc(data[0].wind.speed) : ''}m/s
+              {data[0] && Math.trunc(data[0].wind.speed)}m/s
             </p>
             <p className="text-slate-400">Wind</p>
           </div>
@@ -149,7 +149,7 @@ function App() {
               <path d="M7.502 19.423c2.602 2.105 6.395 2.105 8.996 0c2.602 -2.105 3.262 -5.708 1.566 -8.546l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546z"></path>
             </svg>
             <p className="font-bold text-xl text-slate-700">
-              {data === [] ? data[0].main.humidity : ''}%
+              {data[0] && data[0].main.humidity}%
             </p>
             <p className="text-slate-400">Humidity</p>
           </div>
@@ -172,7 +172,7 @@ function App() {
               <path d="M15 19l2 2l4 -4"></path>
             </svg>
             <p className="font-bold text-xl text-slate-700">
-              {data === [] ? data[0].visibility / 1000 : ''} Km
+              {data[0] && data[0].visibility / 1000} Km
             </p>
             <p className="text-slate-400">Visibility</p>
           </div>
