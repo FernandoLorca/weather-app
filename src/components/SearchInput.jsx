@@ -1,51 +1,9 @@
-import { useState } from 'react';
-
-const SearchInput = ({ handleButtonClick, inputValue, setInputValue }) => {
-  const [data, setData] = useState([]);
-  const [inputStatus, setInputStatus] = useState('hidden');
-  const [contentStatus, setContentStatus] = useState('hidden');
-  const [urlFetch, setUrlFetch] = useState('');
-  const [mainContent, setMainContent] = useState('hidden');
-
-  const handleImage = () => {
-    if (data && data.weather) {
-      const weatherMain = data.weather[0].main;
-      switch (weatherMain) {
-        case 'Clear':
-          setWeatherImage('/clear.svg');
-          break;
-        case 'Clouds':
-          setWeatherImage('/clouds.svg');
-          break;
-        case 'Haze':
-          setWeatherImage('/haze.svg');
-          break;
-        case 'Rain':
-          setWeatherImage('/rain.svg');
-          break;
-        case 'Snow':
-          setWeatherImage('/snow.svg');
-          break;
-      }
-    }
-  };
-
-  // const handleButtonClick = () => {
-  //   if (!inputValue && !data) {
-  //     setInputStatus('block');
-  //     setContentStatus('hidden');
-  //   } else {
-  //     setInputStatus('hidden');
-  //     setUrlFetch(
-  //       `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&units=metric&appid=82e845dcd486575303f22bf3fb66f131`
-  //     );
-  //     setMainContent('block');
-  //     setContentStatus('block');
-  //     setInputValue('');
-  //     handleImage();
-  //   }
-  // };
-
+const SearchInput = ({
+  handleButtonClick,
+  inputValue,
+  setInputValue,
+  error,
+}) => {
   return (
     <div className="flex justify-center gap-5 mb-5">
       <input

@@ -6,7 +6,7 @@ const contextApiProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [urlFetch, setUrlFetch] = useState('');
-
+  const [error, setError] = useState('');
   const handleButtonClick = () => {
     if (!inputValue) return;
 
@@ -18,10 +18,13 @@ const contextApiProvider = ({ children }) => {
   const fetchData = async url => {
     try {
       const response = await fetch(url);
+      if (response.status === 404) throw new Error('City not found');
       const data = await response.json();
       setData([data]);
+      setError('');
     } catch (error) {
       console.error(error);
+      setError('City not found');
     }
   };
 
@@ -31,7 +34,7 @@ const contextApiProvider = ({ children }) => {
   }, [urlFetch]);
   return (
     <ContextApi.Provider
-      value={{ data, handleButtonClick, inputValue, setInputValue }}
+      value={{ data, handleButtonClick, inputValue, setInputValue, error }}
     >
       {children}
     </ContextApi.Provider>
