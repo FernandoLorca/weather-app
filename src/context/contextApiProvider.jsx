@@ -19,7 +19,7 @@ const contextApiProvider = ({ children }) => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      setData(data);
+      setData([data]);
     } catch (error) {
       console.error(error);
     }
