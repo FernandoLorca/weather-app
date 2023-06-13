@@ -1,20 +1,15 @@
-const SearchInput = ({
-  handleButtonClick,
-  inputValue,
-  setInputValue,
-  error,
-}) => {
+const SearchInput = ({ handleButtonClick, inputValue, setInputValue }) => {
   return (
     <div className="flex justify-center gap-5 mb-5">
       <input
         type="text"
         placeholder="Search for city name"
-        className="border-2 rounded-full text-center py-2 w-96"
+        className="ring ring-slate-300 text-slate-300 focus:outline-none focus:ring focus:ring-violet-500 rounded-full text-center py-2 w-96 bg-slate-900"
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
       />
       <button
-        className="bg-orange-600 flex justify-center items-center rounded-full p-3"
+        className="bg-purple-600 flex justify-center items-center rounded-full p-3"
         onClick={handleButtonClick}
       >
         <svg

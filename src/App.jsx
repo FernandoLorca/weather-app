@@ -8,10 +8,8 @@ function App() {
   const { data, handleButtonClick, inputValue, setInputValue, error } =
     useContext(ContextApi);
 
-  console.log(error);
-
   return (
-    <div className="bg-white rounded-3xl py-5 px-16">
+    <div className="bg-slate-900 text-slate-200 rounded-3xl py-5 px-16">
       <div className="my-5">
         <SearchInput
           handleButtonClick={handleButtonClick}
@@ -28,7 +26,7 @@ function App() {
           <p className="text-xl text-slate-400">Must be a valid city name</p>
         </div>
       </div>
-      <MainContent data={data} />
+      <MainContent data={data} error={error} />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import { svgIcons } from './svgIcons';
 import HeaderMainContent from './HeaderMainContent';
 import DetailsMainContent from './DetailsMainContent';
 
-const MainContent = ({ data }) => {
+const MainContent = ({ data, error }) => {
   const [weatherImage, setWeatherImage] = useState('');
 
   const handleImage = () => {
@@ -30,9 +31,13 @@ const MainContent = ({ data }) => {
   useEffect(() => handleImage(), [data[0]]);
 
   return (
-    <div className={!data[0] ? 'hidden' : undefined}>
-      <HeaderMainContent data={data} weatherImage={weatherImage} />
-      <DetailsMainContent data={data} />
+    <div className={error !== 'City not found' ? 'block' : 'hidden'}>
+      <HeaderMainContent
+        data={data}
+        weatherImage={weatherImage}
+        svgIcons={svgIcons}
+      />
+      <DetailsMainContent data={data} svgIcons={svgIcons} />
     </div>
   );
 };

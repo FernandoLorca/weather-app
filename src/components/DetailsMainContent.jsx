@@ -1,7 +1,6 @@
-import { svgIcons } from './svgIcons';
 import DetailsSquaresMainContent from './DetailsSquaresMainContent';
 
-const DetailsMainContent = ({ data }) => {
+const DetailsMainContent = ({ data, svgIcons }) => {
   return (
     <div className="flex justify-center gap-5 px-5 my-5">
       <DetailsSquaresMainContent

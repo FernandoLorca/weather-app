@@ -1,4 +1,25 @@
 export const svgIcons = {
+  place: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-purple-300 icon icon-tabler icon-tabler-map-pin-filled"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path
+        d="M18.364 4.636a9 9 0 0 1 .203 12.519l-.203 .21l-4.243 4.242a3 3 0 0 1 -4.097 .135l-.144 -.135l-4.244 -4.243a9 9 0 0 1 12.728 -12.728zm-6.364 3.364a3 3 0 1 0 0 6a3 3 0 0 0 0 -6z"
+        strokeWidth="0"
+        fill="currentColor"
+      ></path>
+    </svg>
+  ),
   sun: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +31,7 @@ export const svgIcons = {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-10 h-10 mb-2 text-orange-600 icon icon-tabler icon-tabler-sun-low"
+      className="w-10 h-10 mb-2 text-purple-300 icon icon-tabler icon-tabler-sun-low"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
@@ -35,7 +56,7 @@ export const svgIcons = {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-10 h-10 mb-2 text-orange-600 icon icon-tabler icon-tabler-wind"
+      className="w-10 h-10 mb-2 text-purple-300 icon icon-tabler icon-tabler-wind"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M5 8h8.5a2.5 2.5 0 1 0 -2.34 -3.24"></path>
@@ -54,7 +75,7 @@ export const svgIcons = {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-10 h-10 mb-2 text-orange-600 icon icon-tabler icon-tabler-droplet"
+      className="w-10 h-10 mb-2 text-purple-300 icon icon-tabler icon-tabler-droplet"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M7.502 19.423c2.602 2.105 6.395 2.105 8.996 0c2.602 -2.105 3.262 -5.708 1.566 -8.546l-4.89 -7.26c-.42 -.625 -1.287 -.803 -1.936 -.397a1.376 1.376 0 0 0 -.41 .397l-4.893 7.26c-1.695 2.838 -1.035 6.441 1.567 8.546z"></path>
@@ -71,7 +92,7 @@ export const svgIcons = {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="w-10 h-10 mb-2 text-orange-600 icon icon-tabler icon-tabler-eye-check"
+      className="w-10 h-10 mb-2 text-purple-300 icon icon-tabler icon-tabler-eye-check"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
